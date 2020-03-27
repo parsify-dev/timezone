@@ -1,22 +1,34 @@
-interface Options {
-	upperCase?: boolean;
-}
+import mem from 'mem';
 
-/*
-	This is the main function you want to export.
-	You can add options for customization (in this case `upperCase`).
-	It receives the expression, which you need to validate and either do something with it or return the original expression.
-*/
-export default ({upperCase = false}: Options = {}) => async (expression: string): Promise<string> => {
-	// Validate the expression to see if it should be processed by your plugin
-	if (expression === 'hello') {
-		if (upperCase) {
-			return 'HELLO WORLD!';
+import {byLocation, byZone} from '../utils/get-time-zone';
+
+const memoizedByLocation = mem(byLocation, {cacheKey: arguments_ => arguments_[1]});
+const memoizedByZone = mem(byZone);
+
+export default (key: string) => async (expression: string): Promise<string> => {
+	const expressionArray = expression.split(' ');
+
+	if (/time|now|pm|am/i.exec(expression)) {
+		if (expressionArray.length === 1 && /time|now/i.exec(expressionArray[0])) {
+			const today = new Date();
+			const hours = today.getHours();
+			const minutes = today.getMinutes();
+
+			return `${hours === 0 ? '00' : hours}:${minutes === 0 ? '00' : minutes}`;
 		}
 
-		return 'hello world!';
+		if (/time/i.exec(expressionArray[0]) && expressionArray[1] === 'in' && expressionArray[2]) {
+			return memoizedByLocation(key, expressionArray.slice(2).join(' '));
+		}
+
+		if (expressionArray[0] !== expressionArray[0].toUpperCase() && /time/i.exec(expressionArray.slice(-1)[0])) {
+			return memoizedByLocation(key, expressionArray.slice(0, -1).join(' '));
+		}
+
+		if (expressionArray[0] === expressionArray[0].toUpperCase() && /time/i.exec(expressionArray.slice(-1)[0])) {
+			return memoizedByZone(key, expressionArray[0]);
+		}
 	}
 
-	// If the expression validation fails, just return the expression
 	return expression;
 };

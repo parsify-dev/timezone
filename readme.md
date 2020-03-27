@@ -1,46 +1,46 @@
-# Parsify Plugin Hello World
+# Parsify Plugin Timezone
 
-[![Build Status](https://travis-ci.com/parsify-dev/plugin-boilerplate-typescript.svg?branch=master)](https://travis-ci.com/parsify-dev/plugin-boilerplate-typescript) 
-[![Coverage Status](https://coveralls.io/repos/github/parsify-dev/plugin-boilerplate-typescript/badge.svg?branch=master)](https://coveralls.io/github/parsify-dev/plugin-boilerplate-typescript?branch=master)
+[![Build Status](https://travis-ci.com/parsify-dev/timezone.svg?branch=master)](https://travis-ci.com/parsify-dev/timezone) 
+[![Coverage Status](https://coveralls.io/repos/github/parsify-dev/timezone/badge.svg?branch=master)](https://coveralls.io/github/parsify-dev/timezone?branch=master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
 
 ## About
 
-This plugin displays the `hello world!` message, when the user enters `hello` expression.
+This plugin handles time zone conversion, as well as obtaining current time. Examples:
+
+```
+time
+PST time
+New York time
+Time in Warsaw
+```
 
 ## Install
 
 ```
-$ npm install @parsify/core parsify-plugin-hello-world
+$ npm install @parsify/core @parsify/timezone
 ```
 
 ## Usage
 
 ```js
 import Parsify from '@parsify/core';
-import parsifyPluginHelloWorld from 'parsify-plugin-hellow-world';
+import parsifyPluginHelloWorld from '@parsify/timezone';
 
 const parsify = new Parsify([
-    parsifyPluginHelloWorld();
+    parsifyPluginTimezone(key);
 ]);
 ```
 
 ## API
 
-#### parsifyPluginHelloWorld(options?)
+#### parsifyPluginTimezone(key)
 
-##### options
+##### key
 
-Type: `object`
+Type: `string`
 
-Any of the options below
-
-###### upperCase
-
-Type: `boolean`\
-Default: `false`
-
-Whether the output should be upper case or not.
+API key for [timezonedb](https://timezonedb.com/).
 
 ## License
 
