@@ -1,6 +1,6 @@
 import mem from 'mem';
 
-import {byLocation, byZone} from '../utils/get-time-zone';
+import {byLocation, byZone} from './utils/get-time-zone';
 
 const memoizedByLocation = mem(byLocation, {cacheKey: arguments_ => arguments_[1]});
 const memoizedByZone = mem(byZone);
