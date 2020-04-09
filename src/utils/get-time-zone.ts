@@ -1,10 +1,13 @@
+import pMemoize from 'p-memoize';
 import fetch from 'isomorphic-unfetch';
 
 import {locationToCoords} from './location-to-coords';
 import {getTime} from './get-time';
 
+const memCoords = pMemoize(locationToCoords);
+
 export const byLocation = async (key: string, location: string): Promise<string> => {
-	const {lat, lon} = await locationToCoords(location);
+	const {lat, lon} = await memCoords(location);
 	const response = await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${key}&by=position&format=json&lat=${lat}&lng=${lon}`);
 	const data = await response.json();
 

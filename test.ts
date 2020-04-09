@@ -17,7 +17,7 @@ test('get current time', async t => {
 });
 
 test('get time in specific location (1st method)', async t => {
-	t.regex(await parsifyPluginTimezone(key)('time in warsaw'), /CET/);
+	t.regex(await parsifyPluginTimezone(key)('time in warsaw'), /CET|CEST/);
 });
 
 test('get time in specific location (2nd method)', async t => {
