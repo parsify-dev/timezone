@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch';
+import fetch from 'node-fetch';
 
 export const locationToCoords = async (location: string): Promise<any> => {
 	const response = await fetch(`https://nominatim.openstreetmap.org/search/${location}?format=json`);

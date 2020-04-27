@@ -1,5 +1,5 @@
 import pMemoize from 'p-memoize';
-import fetch from 'isomorphic-unfetch';
+import fetch from 'node-fetch';
 
 import {locationToCoords} from './location-to-coords';
 import {getTime} from './get-time';
