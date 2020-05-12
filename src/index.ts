@@ -10,11 +10,15 @@ export default (key: string) => async (expression: string): Promise<string> => {
 
 	if (/time|now|pm|am/i.exec(expression)) {
 		if (expressionArray.length === 1 && /time|now/i.exec(expressionArray[0])) {
+			const isSingleDigit = (number: number) => {
+				return number.toString().charAt(0).startsWith(number.toString());
+			};
+
 			const today = new Date();
 			const hours = today.getHours();
 			const minutes = today.getMinutes();
 
-			return `${hours === 0 ? '00' : hours}:${minutes === 0 ? '00' : minutes}`;
+			return `${hours === 0 ? '00' : (isSingleDigit(hours) ? `0${hours}` : hours)}:${minutes === 0 ? '00' : (isSingleDigit(minutes) ? `0${minutes}` : minutes)}`;
 		}
 
 		if (/time/i.exec(expressionArray[0]) && expressionArray[1] === 'in' && expressionArray[2]) {
