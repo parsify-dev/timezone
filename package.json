@@ -77,9 +77,11 @@
         ]
     },
     "dependencies": {
-        "date-fns": "^2.14.0",
-        "date-fns-tz": "^1.0.10",
         "isomorphic-unfetch": "^3.0.0",
         "lodash.debounce": "^4.0.8"
+    },
+    "peerDependencies": {
+        "date-fns": ">=2.0.0",
+        "date-fns-tz": ">=1.0.0"
     }
 }
