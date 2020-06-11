@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch';
-import {getUnixTime, lightFormat} from 'date-fns';
+import {getUnixTime, format} from 'date-fns';
 import {zonedTimeToUtc} from 'date-fns-tz';
 
 import {locationToCoords} from './location-to-coords';
@@ -10,5 +10,5 @@ export const byLocation = async (key: string, location: string): Promise<string>
 	const data = await response.json();
 	const utcDate = zonedTimeToUtc(new Date(), data.timeZoneId);
 
-	return lightFormat(utcDate, 'HH:mm');
+	return format(utcDate, 'HH:mm');
 };
