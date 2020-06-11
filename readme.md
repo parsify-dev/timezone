@@ -10,7 +10,6 @@ This plugin handles time zone conversion, as well as obtaining current time. Exa
 
 ```
 time
-PST time
 New York time
 Time in Warsaw
 ```
@@ -40,7 +39,7 @@ const parsify = new Parsify([
 
 Type: `string`
 
-API key for [timezonedb](https://timezonedb.com/).
+API key for [Google Maps Time Zone API](https://developers.google.com/maps/documentation/timezone/intro).
 
 ## License
 
