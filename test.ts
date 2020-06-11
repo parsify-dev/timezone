@@ -3,7 +3,7 @@ import {lightFormat} from 'date-fns';
 
 import parsifyPluginTimezone from './src';
 
-const key = process.env.KEY ?? 'AIzaSyCo_EVmbDNccInDj6DO4wBIWo9AzGdrHSU';
+const key = process.env.KEY ?? '';
 
 test('get current time', async t => {
 	t.is(await parsifyPluginTimezone(key)('time'), lightFormat(new Date(), 'HH:mm'));
