@@ -1,6 +1,6 @@
 {
     "name": "@parsify/timezone",
-    "version": "0.2.5",
+    "version": "0.3.0",
     "description": "Parsify plugin for time zone conversion",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
@@ -77,10 +77,8 @@
         ]
     },
     "dependencies": {
-        "isomorphic-unfetch": "^3.0.0"
-    },
-    "peerDependencies": {
-        "date-fns": ">=2.0.0",
-        "date-fns-tz": ">=1.0.0"
+        "date-fns": "^2.14.0",
+        "isomorphic-unfetch": "^3.0.0",
+        "p-memoize": "^4.0.0"
     }
 }
