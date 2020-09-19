@@ -1,6 +1,6 @@
 {
     "name": "@parsify/timezone",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Parsify plugin for time zone conversion",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
