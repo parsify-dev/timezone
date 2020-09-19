@@ -1,5 +1,5 @@
 import pMemoize from 'p-memoize';
-import {lightFormat} from 'date-fns';
+import {format} from 'light-date';
 
 import {byLocation, byZone} from './utils/get-time-zone';
 
@@ -11,7 +11,7 @@ export default (key: string) => async (expression: string): Promise<string> => {
 
 	if (/time|now|pm|am/i.exec(expression)) {
 		if (expressionArray.length === 1 && /time|now/i.exec(expressionArray[0])) {
-			return lightFormat(new Date(), 'HH:mm');
+			return format(new Date(), '{HH}:{mm}');
 		}
 
 		if (/time/i.exec(expressionArray[0]) && expressionArray[1] === 'in' && expressionArray[2]) {

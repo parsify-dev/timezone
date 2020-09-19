@@ -4,9 +4,7 @@ import parsifyPluginTimezone from './src';
 
 const key = process.env.KEY ?? '';
 
-const sleep = async (ms: number): Promise<any> => {
-	return new Promise(resolve => setTimeout(resolve, ms));
-};
+const sleep = async (ms: number): Promise<any> => new Promise(resolve => setTimeout(resolve, ms));
 
 test('get current time', async t => {
 	const today = new Date();
