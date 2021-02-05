@@ -20,7 +20,7 @@ test('get time in specific location (1st method)', async t => {
 
 test('get time in specific location (2nd method)', async t => {
 	await sleep(1000);
-	t.regex(await parsifyPluginTimezone(key)('New York time'), /EDT/);
+	t.regex(await parsifyPluginTimezone(key)('New York time'), /EDT|EST/);
 });
 
 test('get time in certain timezone', async t => {

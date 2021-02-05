@@ -1,8 +1,10 @@
-import fetch from 'isomorphic-unfetch';
+import got from 'got';
+
+const map = new Map();
 
 export const locationToCoords = async (location: string): Promise<any> => {
-	const response = await fetch(`https://nominatim.openstreetmap.org/search/${location}?format=json`);
-	const data = await response.json();
+	const response = await got(`https://nominatim.openstreetmap.org/search/${location}?format=json`, {cache: map}).json();
 
-	return data[0];
+	// @ts-expect-error
+	return response[0];
 };
