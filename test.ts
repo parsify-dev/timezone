@@ -24,7 +24,7 @@ test('get time in specific location (2nd method)', async t => {
 });
 
 test('get time in certain timezone', async t => {
-	t.regex(await parsifyPluginTimezone(key)('Europe/London time'), /GMT/);
+	t.regex(await parsifyPluginTimezone(key)('America/San_Francisco time'), /PST/);
 });
 
 test('if an error occurs, just output the expression', async t => {
