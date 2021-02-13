@@ -7,11 +7,11 @@ const key = process.env.KEY ?? '';
 const sleep = async (ms: number): Promise<any> => new Promise(resolve => setTimeout(resolve, ms));
 
 test('get current time', async t => {
-	const today = new Date();
-	const hours = today.getHours();
-	const minutes = today.getMinutes();
+	t.is(await parsifyPluginTimezone(key)('time'), new Date().toLocaleTimeString());
+});
 
-	t.is(await parsifyPluginTimezone(key)('time'), `${hours === 0 ? '00' : hours}:${minutes === 0 ? '00' : minutes}`);
+test('get current date', async t => {
+	t.is(await parsifyPluginTimezone(key)('now'), new Date().toLocaleDateString());
 });
 
 test('get time in specific location (1st method)', async t => {
@@ -24,7 +24,7 @@ test('get time in specific location (2nd method)', async t => {
 });
 
 test('get time in certain timezone', async t => {
-	t.regex(await parsifyPluginTimezone(key)('PST time'), /PST/);
+	t.regex(await parsifyPluginTimezone(key)('Europe/London time'), /GMT/);
 });
 
 test('if an error occurs, just output the expression', async t => {

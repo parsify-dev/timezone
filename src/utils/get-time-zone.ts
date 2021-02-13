@@ -1,19 +1,21 @@
 import got from 'got';
+import {addMilliseconds, subMilliseconds} from 'date-fns';
+import {utcToZonedTime} from 'date-fns-tz';
 
-import {locationToCoords} from './location-to-coords';
-import {getTime} from './get-time';
-
+const utc = new Date(Date.now());
 const map = new Map();
 
-export const byLocation = async (key: string, location: string): Promise<string> => {
-	const {lat, lon} = await locationToCoords(location);
-	const response = await got(`http://api.timezonedb.com/v2.1/get-time-zone?key=${key}&by=position&format=json&lat=${lat}&lng=${lon}`, {cache: map}).json();
+export const byLocation = async (key: string, location: string, prefersLong: boolean): Promise<string> => {
+	const response: any = await got(`https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${key}`, {cache: map}).json();
+	const offset = response.results[0]?.annotations?.timezone?.offset_sec;
 
-	return getTime(response);
+	if (offset > 0) {
+		return `${new Date(addMilliseconds(utc, offset)).toLocaleTimeString(undefined, {hour: 'numeric', minute: 'numeric'})} ${prefersLong ? response.results[0]?.annotations?.timezone.name : response.results[0]?.annotations?.timezone.short_name}`;
+	}
+
+	return `${new Date(subMilliseconds(utc, offset)).toLocaleTimeString(undefined, {hour: 'numeric', minute: 'numeric'})} ${prefersLong ? response.results[0]?.annotations?.timezone.name : response.results[0]?.annotations?.timezone.short_name}`;
 };
 
-export const byZone = async (key: string, zone: string): Promise<string> => {
-	const response = await got(`http://api.timezonedb.com/v2.1/get-time-zone?key=${key}&by=zone&format=json&zone=${zone}`, {cache: map}).json();
-
-	return getTime(response);
+export const byZone = async (zone: string): Promise<string> => {
+	return `${new Date(utcToZonedTime(utc, zone)).toLocaleTimeString(undefined, {hour: 'numeric', minute: 'numeric'})} ${zone}`;
 };
