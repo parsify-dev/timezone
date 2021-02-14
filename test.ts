@@ -7,7 +7,7 @@ const key = process.env.KEY ?? '';
 const sleep = async (ms: number): Promise<any> => new Promise(resolve => setTimeout(resolve, ms));
 
 test('get current time', async t => {
-	t.is(await parsifyPluginTimezone(key)('time'), new Date().toLocaleTimeString());
+	t.is(await parsifyPluginTimezone(key)('time'), new Date().toLocaleTimeString(undefined, {hour: 'numeric', minute: 'numeric'}));
 });
 
 test('get current date', async t => {
